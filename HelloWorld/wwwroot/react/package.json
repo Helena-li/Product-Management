@@ -1,0 +1,36 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "helloworld",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Linda",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-tag-input": "^6.3.0",
+    "semantic-ui-react": "^0.85.0",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^2.1.0",
+    "file-loader": "^3.0.1",
+    "node-sass": "^4.11.0",
+    "querystring": "^0.2.0",
+    "sass-loader": "^7.1.0",
+    "semantic-ui-css": "^2.4.1",
+    "style-loader": "^0.23.1",
+    "svg-url-loader": "^2.3.2"
+  }
+}
