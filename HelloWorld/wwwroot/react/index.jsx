@@ -1,12 +1,10 @@
 ﻿import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Icon, Label, Menu, Table, Dropdown, Modal, Form, Header } from 'semantic-ui-react'
+import { Button, Icon, Menu, Table, Dropdown, Modal, Form } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.css'
 import axios from 'axios';
 import qs from 'querystring';
 import _ from 'lodash';
-import { fail } from 'assert';
-import { isNullOrUndefined } from 'util';
 
 const pagesOptions = [
     {
@@ -142,6 +140,7 @@ export default class Customers extends Component {
                 Address: this.state.address
             };
             this.postCustomerData(newCustomerData, "/Customers/Create");
+            this.handleClose();
         }
     }
 
@@ -201,7 +200,8 @@ export default class Customers extends Component {
                 })
                 .catch(e => {
                     console.log(e)
-                })
+                });
+            this.handleEditClose();
         }
 
     }
@@ -213,7 +213,8 @@ export default class Customers extends Component {
             })
             .catch(e => {
                 console.log(e)
-            })
+            });
+        this.handleDeleteClose();
     }
     //-----sort table
     //--back to page 1 if change sort maner in a page
@@ -284,7 +285,7 @@ export default class Customers extends Component {
             return customers.slice((page - 1) * pageDisplay, page * pageDisplay);
         }
     }
-    
+
     handlePages = (page) => {
         if (page === 0) {
             return;
@@ -395,45 +396,42 @@ export default class Customers extends Component {
 
         return (
             <div>
-            <div>
-                {this.renderAddCustomerModal()}
-                <Table sortable celled striped fixed>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell
-                                sorted={clickedColumn === 'name' ? direction : null}
-                                onClick={() => { this.handleSort('name') }}>
-                                Name
+                <div>
+                    {this.renderAddCustomerModal()}
+                    <Table sortable celled striped fixed>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell
+                                    sorted={clickedColumn === 'name' ? direction : null}
+                                    onClick={() => { this.handleSort('name') }}>
+                                    Name
                         </Table.HeaderCell>
-                            <Table.HeaderCell
-                                sorted={clickedColumn === 'address' ? direction : null}
-                                onClick={() => { this.handleSort('address') }}>
-                                Address
+                                <Table.HeaderCell
+                                    sorted={clickedColumn === 'address' ? direction : null}
+                                    onClick={() => { this.handleSort('address') }}>
+                                    Address
                         </Table.HeaderCell>
-                            <Table.HeaderCell>Actions</Table.HeaderCell>
-                            <Table.HeaderCell>Actions</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
+                                <Table.HeaderCell>Actions</Table.HeaderCell>
+                                <Table.HeaderCell>Actions</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
 
-                    <Table.Body>
-                        {this.renderCustomersCell()}
-                    </Table.Body>
+                        <Table.Body>
+                            {this.renderCustomersCell()}
+                        </Table.Body>
 
-                    <Table.Footer>
-                        <Table.Row>
-                            <Table.HeaderCell colSpan='4'>
-                                <Dropdown
-                                    value={this.state.pageDisplay}
-                                    selection options={pagesOptions}
-                                    onChange={this.handlePageDisplay} />
-                                {this.handleMenu()}
-                            </Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Footer>
-                </Table>
-            </div>
-            
-        </div>);
+                        <Table.Footer>
+
+                        </Table.Footer>
+                    </Table>
+                    <Dropdown
+                        value={this.state.pageDisplay}
+                        selection options={pagesOptions}
+                        onChange={this.handlePageDisplay} />
+                    {this.handleMenu()}
+                </div>
+
+            </div>);
     }
 }
 
